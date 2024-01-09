@@ -19,13 +19,24 @@ func main() {
 	fmt.Scan(&comando)
 	fmt.Println("O comando escolhido foi ", comando)
 
-	if comando == 1 {
-		fmt.Printf("Monitorando")
-	} else if comando == 2 {
+	// if comando == 1 {
+	// 	fmt.Printf("Monitorando")
+	// } else if comando == 2 {
+	// 	fmt.Println("Exibindo Logs...")
+	// } else if comando == 0 {
+	// 	fmt.Println("Saindo...")
+	// } else {
+	// 	fmt.Println("Comando Inválido! Tente Novamente.")
+	// }
+
+	switch comando {
+	case 1:
+		fmt.Printf("Monitorando...")
+	case 2:
 		fmt.Println("Exibindo Logs...")
-	} else if comando == 0 {
-		fmt.Println("Saindo...")
-	} else {
+	case 0:
+		fmt.Println("Saindo do programa.")
+	default:
 		fmt.Println("Comando Inválido! Tente Novamente.")
 	}
 }
