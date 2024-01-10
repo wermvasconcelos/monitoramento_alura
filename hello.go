@@ -54,8 +54,15 @@ func leComando() int {
 
 func IniciarMonitoramento() {
 	fmt.Println("Monitorando...")
-	// site com URL inexistente
-	site := "https://httpbin.org/status/404" // ou 200
+
+	var sites [4]string
+	sites[0] = "https://pokedex-three-smoky.vercel.app/"
+	sites[1] = "https://space-app-dun.vercel.app/"
+	sites[2] = "https://ola-mundo-react-swart.vercel.app/"
+	sites[3] = "https://sitealeatorio.com/"
+
+	site := "https://sitealeatorio.com/"
+
 	resp, _ := http.Get(site)
 
 	if resp.StatusCode == 200 {
