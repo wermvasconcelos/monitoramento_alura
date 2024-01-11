@@ -7,6 +7,9 @@ import (
 	"time"
 )
 
+const monitoramento = 3
+const delay = 5
+
 func main() {
 	exibeIntroducao()
 
@@ -55,14 +58,16 @@ func leComando() int {
 
 func IniciarMonitoramento() {
 	fmt.Println("Monitorando...")
+	fmt.Println("----------------------------------------------------------------------------")
 
 	sites := []string{"https://pokedex-three-smoky.vercel.app/", "https://space-app-dun.vercel.app/", "https://ola-mundo-react-swart.vercel.app/", "https://aleatorio404.vercel.app/"}
 
-	for i := 0; i < 3; i++ {
+	for i := 0; i < monitoramento; i++ {
 		for _, site := range sites {
 			testaSite(site)
 		}
-		time.Sleep(5 * time.Second)
+		time.Sleep(delay * time.Second)
+		fmt.Println("----------------------------------------------------------------------------")
 	}
 
 }
