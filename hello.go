@@ -55,21 +55,17 @@ func leComando() int {
 func IniciarMonitoramento() {
 	fmt.Println("Monitorando...")
 
-	var sites [4]string
-	sites[0] = "https://pokedex-three-smoky.vercel.app/"
-	sites[1] = "https://space-app-dun.vercel.app/"
-	sites[2] = "https://ola-mundo-react-swart.vercel.app/"
-	sites[3] = "https://sitealeatorio.com/"
+	sites := []string{"https://pokedex-three-smoky.vercel.app/", "https://space-app-dun.vercel.app/", "https://ola-mundo-react-swart.vercel.app/", "https://aleatorio404.vercel.app/"}
 
-	site := "https://sitealeatorio.com/"
+	for _, site := range sites {
+		resp, _ := http.Get(site)
 
-	resp, _ := http.Get(site)
+		if resp.StatusCode == 200 {
+			fmt.Println("Site:", site, "foi carregado com sucesso!")
+			continue
+		}
 
-	if resp.StatusCode == 200 {
-		fmt.Println("Site:", site, "foi carregado com sucesso!")
-		return
+		fmt.Println("Site:", site, "está com problemas. Status Code:", resp.StatusCode)
 	}
-
-	fmt.Println("Site:", site, "está com problemas. Status Code:", resp.StatusCode)
 
 }
