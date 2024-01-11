@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"time"
 )
 
 func main() {
@@ -57,8 +58,11 @@ func IniciarMonitoramento() {
 
 	sites := []string{"https://pokedex-three-smoky.vercel.app/", "https://space-app-dun.vercel.app/", "https://ola-mundo-react-swart.vercel.app/", "https://aleatorio404.vercel.app/"}
 
-	for _, site := range sites {
-		testaSite(site)
+	for i := 0; i < 3; i++ {
+		for _, site := range sites {
+			testaSite(site)
+		}
+		time.Sleep(5 * time.Second)
 	}
 
 }
