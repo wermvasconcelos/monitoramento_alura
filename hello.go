@@ -1,9 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -60,7 +63,8 @@ func IniciarMonitoramento() {
 	fmt.Println("Monitorando...")
 	fmt.Println("----------------------------------------------------------------------------")
 
-	sites := []string{"https://pokedex-three-smoky.vercel.app/", "https://space-app-dun.vercel.app/", "https://ola-mundo-react-swart.vercel.app/", "https://aleatorio404.vercel.app/"}
+	//sites := []string{"https://pokedex-three-smoky.vercel.app/", "https://space-app-dun.vercel.app/", "https://ola-mundo-react-swart.vercel.app/", "https://aleatorio404.vercel.app/"}
+	sites := lerSitesDoArquivo()
 
 	for i := 0; i < monitoramento; i++ {
 		for _, site := range sites {
@@ -73,7 +77,12 @@ func IniciarMonitoramento() {
 }
 
 func testaSite(site string) {
-	resp, _ := http.Get(site)
+	resp, err := http.Get(site)
+
+	if err != nil {
+		fmt.Println("Ocorreu um erro ao monitorar o site ", site, "\n Erro:", err)
+		return
+	}
 
 	if resp.StatusCode == 200 {
 		fmt.Println("Site:", site, "foi carregado com sucesso!")
@@ -81,4 +90,30 @@ func testaSite(site string) {
 	}
 
 	fmt.Println("Site:", site, "está com problemas. Status Code:", resp.StatusCode)
+}
+
+func lerSitesDoArquivo() []string {
+	sites := []string{}
+
+	arquivo, err := os.Open("sites.txt")
+
+	if err != nil {
+		fmt.Println("Ocorreu um erro:", err)
+	}
+
+	leitor := bufio.NewReader(arquivo)
+
+	for {
+		linha, err := leitor.ReadString('\n')
+
+		if err == io.EOF {
+			break
+		}
+
+		sites = append(sites, strings.TrimSpace(linha))
+	}
+
+	arquivo.Close()
+
+	return sites
 }
