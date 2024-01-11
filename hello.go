@@ -58,14 +58,18 @@ func IniciarMonitoramento() {
 	sites := []string{"https://pokedex-three-smoky.vercel.app/", "https://space-app-dun.vercel.app/", "https://ola-mundo-react-swart.vercel.app/", "https://aleatorio404.vercel.app/"}
 
 	for _, site := range sites {
-		resp, _ := http.Get(site)
-
-		if resp.StatusCode == 200 {
-			fmt.Println("Site:", site, "foi carregado com sucesso!")
-			continue
-		}
-
-		fmt.Println("Site:", site, "está com problemas. Status Code:", resp.StatusCode)
+		testaSite(site)
 	}
 
+}
+
+func testaSite(site string) {
+	resp, _ := http.Get(site)
+
+	if resp.StatusCode == 200 {
+		fmt.Println("Site:", site, "foi carregado com sucesso!")
+		return
+	}
+
+	fmt.Println("Site:", site, "está com problemas. Status Code:", resp.StatusCode)
 }
